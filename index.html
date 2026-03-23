@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Exam Registration</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="form-wrapper">
+        <div class="form-header">
+            <h1>Online Exam Registration</h1>
+            <p>Please fill all details carefully to register</p>
+        </div>
+
+        <form action="register.php" method="POST" class="registration-form" id="examForm" enctype="multipart/form-data">
+
+            <!-- Personal Details -->
+            <div class="form-card">
+                <h2>Personal Details</h2>
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="fathername">Father's Name</label>
+                    <input type="text" id="fathername" name="fathername" placeholder="Enter father's name" required>
+                </div>
+                <div class="form-group">
+                    <label for="mothername">Mother's Name</label>
+                    <input type="text" id="mothername" name="mothername" placeholder="Enter mother's name" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Contact Details -->
+            <div class="form-card">
+                <h2>Contact Details</h2>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" name="mobile" placeholder="Enter your mobile number" required>
+                </div>
+                <div class="form-group">
+                    <label for="exam_city">City</label>
+                    <input type="text" id="exam_city" name="exam_city" placeholder="Enter your city" required>
+                </div>
+            </div>
+
+            <!-- Academic Details -->
+            <div class="form-card">
+                <h2>Academic Details</h2>
+                <div class="form-group">
+                    <label for="course">Course</label>
+                    <input type="text" id="course" name="course" placeholder="Enter your course name" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="general">General</option>
+                        <option value="obc">OBC</option>
+                        <option value="sc">SC</option>
+                        <option value="st">ST</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Exam Details -->
+            <div class="form-card">
+                <h2>Exam Details</h2>
+                <div class="form-group">
+                    <label for="exam">Exam Selected</label>
+                    <select id="exam" name="exam" required>
+                        <option value="" disabled selected>Select Exam</option>
+                        <option value="jee-main">JEE Main</option>
+                        <option value="neet">NEET</option>
+                        <option value="others">Other Exams</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exam_mode">Mode of Exam</label>
+                    <select id="exam_mode" name="exam_mode" required>
+                        <option value="" disabled selected>Select Mode</option>
+                        <option value="online">Online</option>
+                        <option value="offline">Offline</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exam_date">Exam Date</label>
+                    <input type="date" id="exam_date" name="exam_date" required>
+                </div>
+                <div class="form-group">
+                    <label for="exam_time">Exam Time</label>
+                    <input type="time" id="exam_time" name="exam_time" required>
+                </div>
+            </div>
+
+            <!-- Upload Photo and Signature -->
+            <div class="form-card">
+                <h2>Upload Documents</h2>
+                <div class="form-group">
+                    <label for="photo">Upload Photo (JPEG/PNG)</label>
+                    <input type="file" id="photo" name="photo" accept="image/png, image/jpeg" required>
+                </div>
+                <div class="form-group">
+                    <label for="signature">Upload Signature (JPEG/PNG)</label>
+                    <input type="file" id="signature" name="signature" accept="image/png, image/jpeg" required>
+                </div>
+            </div>
+
+            <!-- Password -->
+            <div class="form-card">
+                <h2>Account Password</h2>
+                <div class="form-group">
+                    <label for="password">Set Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Register Now</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('examForm').onsubmit = function() {
+            let errors = "";
+            let fields = [
+                'fullname','fathername','mothername','dob','gender',
+                'email','mobile','exam_city','course','category',
+                'exam','exam_mode','exam_date','exam_time','password'
+            ];
+
+            fields.forEach(function(f){
+                let val = document.getElementById(f).value.trim();
+                if(!val) errors += f + " is required.\n";
+            });
+
+            let email = document.getElementById('email').value.trim();
+            if(email && !/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email)) errors += "Valid Email is required.\n";
+
+            let mobile = document.getElementById('mobile').value.trim();
+            if(mobile && !/^\d{10}$/.test(mobile)) errors += "Valid 10-digit Mobile number required.\n";
+
+            let password = document.getElementById('password').value.trim();
+            if(password && password.length < 6) errors += "Password must be at least 6 characters.\n";
+
+            // Validate file inputs
+            let photo = document.getElementById('photo').files[0];
+            let signature = document.getElementById('signature').files[0];
+            if(!photo) errors += "Photo is required.\n";
+            if(!signature) errors += "Signature is required.\n";
+
+            if(errors) { alert(errors); return false; }
+            return true;
+        }
+    </script>
+</body>
+</html>
